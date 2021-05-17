@@ -1,0 +1,6 @@
+{
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": true,
+    "html.format.enable": false,
+    "html.format.preserveNewLines": false
+}
