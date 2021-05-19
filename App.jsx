@@ -1,8 +1,9 @@
 /* eslint-disable global-require */
 import React, { useState } from 'react';
 import {
-  StyleSheet, Platform, StatusBar, SafeAreaView,
+  StyleSheet, Platform, SafeAreaView,
 } from 'react-native';
+import Constants from 'expo-constants';
 import LandingScreen from './src/screens/LandingScreen';
 import screens from './src/screens/screens';
 import SetupGameScreen from './src/screens/SetupGameScreen';
@@ -11,9 +12,9 @@ import BoardGameScreen from './src/screens/BoardGameScreen';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
     justifyContent: 'center',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    // on IOS the safe area view already sets this padding to this value
+    paddingTop: Constants.statusBarHeight,
   },
 });
 

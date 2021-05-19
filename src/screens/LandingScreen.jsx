@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { Audio } from 'expo-av';
-import screens from './screens';
+import screens from './Screens';
 
 const styles = StyleSheet.create({
   background: {
