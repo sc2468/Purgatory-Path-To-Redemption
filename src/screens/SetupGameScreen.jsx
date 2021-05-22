@@ -5,44 +5,36 @@ import {
   FlatList, ImageBackground, StyleSheet, View,
 } from 'react-native';
 import { Title } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
 import CharacterCard from '../components/CharacterCard';
+import { navigateToAction, startGameAction } from '../store/actions';
+import { screens, AVAILABLE_CHARACTERS } from './constances';
 
 const styles = StyleSheet.create({
   list: {
     maxWidth: 1000,
+    width: '100%',
     flex: 1,
-    flexBasis: 1,
+    // flexBasis: 1,
+    padding: 10,
   },
   background: {
-    flex: 1,
     alignItems: 'center',
-    width: '100%',
-    height: '100%',
+    // width: '100%',
+    // height: '100%',
+    flex: 1,
   },
 });
 
-const AVAILABLE_CHARACTERS = [
-  {
-    id: '1', name: 'Prisoner Turned Preacher', description: 'need to add', image: require('../assets/characters/preacher.png'),
-  },
-  {
-    id: '2', name: 'Adrenalin Junky', description: 'need to add', image: require('../assets/characters/adrenalin-junky.png'),
-  },
-  {
-    id: '3', name: 'The Scientist', description: 'need to add', image: require('../assets/characters/scientist.png'),
-  },
-  {
-    id: '4', name: 'The Angry CEO', description: 'need to add', image: require('../assets/characters/angry-ceo.jpg'),
-  },
-];
-
 function SetupScreen() {
+  const dispatch = useDispatch();
   return (
     <ImageBackground source={require('../assets/characters/character-background.jpg')} style={styles.background}>
       <Title>Character Selection</Title>
       <FlatList
         data={AVAILABLE_CHARACTERS}
         keyExtractor={(item) => item.id}
+        numColumns={2}
         renderItem={({ item }) => (
           <CharacterCard
             title={item.name}
@@ -51,9 +43,20 @@ function SetupScreen() {
           />
         )}
         style={styles.list}
-        ItemSeparatorComponent={() => <View style={{ padding: 20 }} />}
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
+        ItemSeparatorComponent={() => (
+          <View style={{ padding: 20 }} />
+        )}
       />
-      <Button title="Start Game" style={{ width: '100%', paddingTop: 10 }} />
+      <Button
+        title="Start Game"
+        style={{ width: '100%', paddingTop: 10 }}
+        onPress={() => {
+          // ToDo use redux thunk to make this nicer
+          dispatch(startGameAction([1, 2, 3, 4]));
+          dispatch(navigateToAction(screens.MAIN_GAME));
+        }}
+      />
     </ImageBackground>
   );
 }

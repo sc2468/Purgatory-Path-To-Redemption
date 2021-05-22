@@ -1,3 +1,5 @@
+import { Audio } from 'expo-av';
+
 const playSound = async () => {
     const soundObject = new Audio.Sound();
     try {

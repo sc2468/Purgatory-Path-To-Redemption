@@ -3,15 +3,21 @@ import React from 'react';
 import {
   Text, Image, ImageBackground, StyleSheet, View, TouchableHighlight,
 } from 'react-native';
-import PropTypes from 'prop-types';
 import { Audio } from 'expo-av';
-import screens from './Screens';
+import { useDispatch } from 'react-redux';
+import { screens } from './constances';
+import { navigateToAction } from '../store/actions';
 
 const styles = StyleSheet.create({
-  background: {
+  backgroundImage: {
     height: '100%',
     width: '100%',
     resizeMode: 'cover',
+  },
+  background: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'black',
   },
   title: {
     flex: 4,
@@ -24,8 +30,8 @@ const styles = StyleSheet.create({
   },
 });
 
-function LandingScreen(props) {
-  const { routeToNewPage } = props;
+function LandingScreen() {
+  const dispatch = useDispatch();
 
   const playSound = async () => {
     const soundObject = new Audio.Sound();
@@ -45,9 +51,12 @@ function LandingScreen(props) {
   };
   playSound();
   return (
-    <TouchableHighlight style={styles.background} onPress={routeToNewPage}>
+    <TouchableHighlight
+      style={styles.background}
+      onPress={() => dispatch(navigateToAction(screens.SETUP))}
+    >
       <ImageBackground
-        style={styles.background}
+        style={styles.backgroundImage}
         source={require('../assets/snow.gif')}
         resizeMode="stretch"
       >
@@ -65,15 +74,11 @@ function LandingScreen(props) {
           />
         </View>
         <View style={{ flex: 1, justifyContent: 'center' }}>
-          <Text style={{ fontSize: 100, color: 'blue' }} title="Start" onPress={() => routeToNewPage(screens.setUp)} />
+          <Text style={{ fontSize: 100, color: 'blue' }} title="Start" onPress={() => dispatch(navigateToAction(screens.SETUP))} />
         </View>
       </ImageBackground>
     </TouchableHighlight>
   );
 }
-
-LandingScreen.propTypes = {
-  routeToNewPage: PropTypes.func.isRequired,
-};
 
 export default LandingScreen;

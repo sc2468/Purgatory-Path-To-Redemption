@@ -4,8 +4,9 @@ import { useDeviceOrientation } from '@react-native-community/hooks';
 import {
   Image, ImageBackground, StyleSheet, TouchableHighlight,
 } from 'react-native';
-import PropTypes from 'prop-types';
-import screens from './screens';
+import { useDispatch } from 'react-redux';
+import { screens } from './constances';
+import { navigateToAction } from '../store/actions';
 
 const styles = StyleSheet.create({
   backgroundLandscape: {
@@ -21,6 +22,11 @@ const styles = StyleSheet.create({
     minHeight: 400,
     alignItems: 'center',
   },
+  container: {
+    backgroundColor: 'black',
+    flex: 1,
+    justifyContent: 'center',
+  },
   title: {
     width: '100%',
     padding: 0,
@@ -31,11 +37,14 @@ const styles = StyleSheet.create({
   },
 });
 
-function LandingScreen(props) {
-  const { routeToNewPage } = props;
+function LandingScreen() {
   const orientation = useDeviceOrientation();
+  const dispatch = useDispatch();
   return (
-    <TouchableHighlight onPress={() => routeToNewPage(screens.setUp)}>
+    <TouchableHighlight
+      onPress={() => dispatch(navigateToAction(screens.SETUP))}
+      style={styles.container}
+    >
       <ImageBackground
         style={orientation.landscape ? styles.backgroundLandscape : styles.backgroundPortrait}
         source={require('../assets/snow.gif')}
@@ -55,9 +64,5 @@ function LandingScreen(props) {
     </TouchableHighlight>
   );
 }
-
-LandingScreen.propTypes = {
-  routeToNewPage: PropTypes.func.isRequired,
-};
 
 export default LandingScreen;

@@ -3,7 +3,7 @@
     "name": "purgatoryPathToRedemption",
     "slug": "purgatoryPathToRedemption",
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "splash": {
       "image": "./src/assets/snow.gif",

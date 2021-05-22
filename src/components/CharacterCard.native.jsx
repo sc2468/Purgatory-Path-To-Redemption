@@ -7,12 +7,10 @@ import {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: 600,
+    width: '45%',
   },
   cover: {
-    resizeMethod: 'scale',
-    resizeMode: 'center',
-    height: 300,
+    resizeMode: 'cover', height: 300,
   },
 });
 
