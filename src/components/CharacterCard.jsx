@@ -1,38 +1,58 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, useWindowDimensions } from 'react-native';
 import {
-  Card, Checkbox, Paragraph, Title,
+  Card, Paragraph, Title,
 } from 'react-native-paper';
+import PropTypes from 'prop-types';
+import { isSmallScreen } from '../screens/constances';
 
-const styles = StyleSheet.create({
+const styleGenerator = (width) => StyleSheet.create({
   container: {
+    margin: 10,
     flex: 1,
-    width: 600,
+    maxWidth: width * 0.9,
+  },
+
+  unselectedImage: {
+    opacity: 0.5,
   },
   cover: {
-    resizeMethod: 'scale',
-    resizeMode: 'center',
-    height: 300,
+    resizeMode: 'contain',
+    height: width * 0.7,
+    width: width * 0.9,
   },
 });
 
-function characterCard(props) {
-  const { title, description, image } = props;
+function CharacterCard(props) {
+  const { width } = useWindowDimensions();
+  const smallScreenWidth = isSmallScreen(width) ? width : width / 2;
+  const {
+    title, description, image, characterSelector, selected,
+  } = props;
+  const styles = styleGenerator(smallScreenWidth);
   return (
-    <Card style={styles.container}>
+    <Card
+      style={[styles.container, selected ? styles.highLight : null]}
+      onPress={characterSelector}
+    >
       <Card.Cover
         source={image}
-        style={styles.cover}
+        style={[styles.cover, !selected && styles.unselectedImage]}
       />
       <Card.Content>
         <Title>{title}</Title>
         <Paragraph>{description}</Paragraph>
       </Card.Content>
-      <Card.Actions>
-        <Checkbox.Item label="select" status="checked" />
-      </Card.Actions>
     </Card>
   );
 }
 
-export default characterCard;
+CharacterCard.prototype = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.image,
+  characterSelector: PropTypes.func,
+  selected: PropTypes.bool,
+};
+
+export default CharacterCard;

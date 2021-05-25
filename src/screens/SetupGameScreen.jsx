@@ -1,62 +1,116 @@
 /* eslint-disable global-require */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
-  FlatList, ImageBackground, StyleSheet, View,
+  FlatList, Image, ImageBackground, StyleSheet, useWindowDimensions, View,
 } from 'react-native';
-import { Title } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import CharacterCard from '../components/CharacterCard';
+// import WithScreenBreakPoint from '../components/WithScreenBreakPoint';
 import { navigateToAction, startGameAction } from '../store/actions';
-import { screens, AVAILABLE_CHARACTERS } from './constances';
+import { screens, AVAILABLE_CHARACTERS, SMALL_SCREEN_BREAK_POINT } from './constances';
 
-const styles = StyleSheet.create({
-  list: {
-    maxWidth: 1000,
-    width: '100%',
+const stylesCreator = (width) => StyleSheet.create({
+  listContainer: {
     flex: 1,
-    // flexBasis: 1,
-    padding: 10,
+    flexBasis: 1,
+    flexGrow: -1,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
   background: {
     alignItems: 'center',
-    // width: '100%',
-    // height: '100%',
+    alignContent: 'center',
     flex: 1,
+  },
+  header: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  title: {
+    height: width * 0.1,
+    width: width * 0.8,
+  },
+  arrow: {
+    position: 'absolute',
+    right: 10,
+    color: '#790000',
   },
 });
 
 function SetupScreen() {
+  const { width } = useWindowDimensions();
+  const [selectedCharacters, setSelectedCharacter] = useState([]);
   const dispatch = useDispatch();
+  const Large = width > SMALL_SCREEN_BREAK_POINT;
+  const styles = stylesCreator(width);
+
+  const characterSelector = (id) => () => {
+    if (selectedCharacters.includes(id)) {
+      setSelectedCharacter(selectedCharacters.filter((selectedId) => selectedId !== id));
+    } else {
+      setSelectedCharacter((currentSelected) => [...currentSelected, id]);
+    }
+  };
+
   return (
     <ImageBackground source={require('../assets/characters/character-background.jpg')} style={styles.background}>
-      <Title>Character Selection</Title>
-      <FlatList
-        data={AVAILABLE_CHARACTERS}
-        keyExtractor={(item) => item.id}
-        numColumns={2}
-        renderItem={({ item }) => (
-          <CharacterCard
-            title={item.name}
-            description={item.description}
-            image={item.image}
-          />
+      <View style={styles.header}>
+        <Image source={require('../assets/characterSelection.png')} style={styles.title} resizeMode="contain" />
+        <MaterialCommunityIcons
+          name="arrow-right"
+          size={width * 0.1}
+          style={styles.arrow}
+          color="Red"
+          onPress={
+          () => {
+            // ToDo use redux thunk to make this nicer
+            dispatch(startGameAction(selectedCharacters));
+            dispatch(navigateToAction(screens.MAIN_GAME));
+          }
+        }
+        />
+      </View>
+
+      {/* Create its own component for this */}
+      <View style={styles.listContainer}>
+        {Large && (
+        <FlatList
+          scrollEnabled
+          data={AVAILABLE_CHARACTERS}
+          keyExtractor={(item) => item.id}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
+          renderItem={({ item }) => (
+            <CharacterCard
+              title={item.name}
+              description={item.description}
+              image={item.image}
+              characterSelector={characterSelector(item.id)}
+              selected={selectedCharacters.includes(item.id)}
+            />
+          )}
+          numColumns={2}
+        />
         )}
-        style={styles.list}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
-        ItemSeparatorComponent={() => (
-          <View style={{ padding: 20 }} />
+        {!Large && (
+        <FlatList
+          data={AVAILABLE_CHARACTERS}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <CharacterCard
+              title={item.name}
+              description={item.description}
+              image={item.image}
+              characterSelector={characterSelector(item.id)}
+              selected={selectedCharacters.includes(item.id)}
+            />
+          )}
+        />
         )}
-      />
-      <Button
-        title="Start Game"
-        style={{ width: '100%', paddingTop: 10 }}
-        onPress={() => {
-          // ToDo use redux thunk to make this nicer
-          dispatch(startGameAction([1, 2, 3, 4]));
-          dispatch(navigateToAction(screens.MAIN_GAME));
-        }}
-      />
+      </View>
     </ImageBackground>
   );
 }

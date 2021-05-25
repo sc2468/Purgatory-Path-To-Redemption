@@ -21,3 +21,6 @@ export const STARTING_CHARACTER_STATS = {
   3: { name: 'The Scientist', health: 15, salvation: 30 },
   4: { name: 'The Angry CEO', health: 15, salvation: 30 },
 };
+
+export const SMALL_SCREEN_BREAK_POINT = 800;
+export const isSmallScreen = ((width) => width < SMALL_SCREEN_BREAK_POINT);

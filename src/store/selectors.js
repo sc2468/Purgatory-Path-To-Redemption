@@ -1,1 +1,1 @@
-export const screenSelector = (state) => {console.log(state); return state.navigation.currentPage};
+export const screenSelector = (state) => state.navigation.currentPage;

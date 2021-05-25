@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import Constants from 'expo-constants';
 import { screens } from './constances';
@@ -19,12 +19,14 @@ const styles = StyleSheet.create({
 
 export default function MainScreen() {
   const screen = useSelector(screenSelector);
-  console.log(screen);
   return (
-    <SafeAreaView style={styles.container}>
-      {screen === screens.LANDING && (<LandingScreen />)}
-      {screen === screens.SETUP && <SetupGameScreen />}
-      {screen === screens.MAIN_GAME && <BoardGameScreen />}
-    </SafeAreaView>
+    <View style={{ backgroundColor: 'black', flex: 1 }}>
+      <SafeAreaView style={styles.container}>
+        {screen === screens.LANDING && (<LandingScreen />)}
+        {screen === screens.SETUP && <SetupGameScreen />}
+        {screen === screens.MAIN_GAME && <BoardGameScreen />}
+      </SafeAreaView>
+    </View>
+
   );
 }

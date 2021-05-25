@@ -6,7 +6,7 @@ import {
 
 const styles = StyleSheet.create({
   background: {
-    height: '100%',
+    flex: 1,
     width: '100%',
     resizeMode: 'cover',
   },
@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
   subTitle: {
     width: '80%',
     flex: 1,
-    height: 50,
   },
 });
 
