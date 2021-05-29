@@ -1,37 +1,29 @@
 /* eslint-disable global-require */
 import React from 'react';
 import {
-  Text, ImageBackground, StyleSheet, View,
+  Text, ImageBackground, StyleSheet, View, FlatList,
 } from 'react-native';
+import BoardGameController from '../components/BoardGameController';
+import BoardGameDisplay from '../components/BoardGameDisplay';
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1,
+    height: '100%',
     width: '100%',
     resizeMode: 'cover',
   },
-  title: {
-    flex: 4,
-    width: '100%',
-  },
-  subTitle: {
-    width: '80%',
-    flex: 1,
-  },
 });
 
-function LandingScreen() {
+function BoardGameScreen() {
   return (
     <ImageBackground
       style={styles.background}
-      source={require('../assets/snow.gif')}
+      source={require('../assets/boardGame/old-paper.jpg')}
       resizeMode="stretch"
     >
-      <View style={{ flex: 1 }}>
-        <Text>This is the board game page</Text>
-      </View>
+      <BoardGameController BoardGameDisplay={BoardGameDisplay} />
     </ImageBackground>
   );
 }
 
-export default LandingScreen;
+export default BoardGameScreen;
