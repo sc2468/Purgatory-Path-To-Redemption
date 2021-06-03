@@ -1,28 +1,17 @@
 /* eslint-disable global-require */
 import React from 'react';
-import {
-  Text, ImageBackground, StyleSheet, View, FlatList,
-} from 'react-native';
+import { Title } from 'react-native-paper';
 import BoardGameController from '../components/BoardGameController';
 import BoardGameDisplay from '../components/BoardGameDisplay';
-
-const styles = StyleSheet.create({
-  background: {
-    height: '100%',
-    width: '100%',
-    resizeMode: 'cover',
-  },
-});
+import PageWithTitle from '../components/PageWithTitle';
 
 function BoardGameScreen() {
   return (
-    <ImageBackground
-      style={styles.background}
-      source={require('../assets/boardGame/old-paper.jpg')}
-      resizeMode="stretch"
-    >
-      <BoardGameController BoardGameDisplay={BoardGameDisplay} />
-    </ImageBackground>
+    <PageWithTitle
+      HeaderComponent={<Title>Header</Title>}
+      BodyComponent={(<BoardGameController BoardGameDisplay={BoardGameDisplay} />)}
+      backgroundImage={require('../assets/boardGame/old-paper.jpg')}
+    />
   );
 }
 

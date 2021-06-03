@@ -19,7 +19,6 @@ export const characterImageSelector = (characterId) => {
 /* eslint-disable global-require */
 export const characterIconSelector = (characterId) => {
   switch (characterId) {
-    //
     case 1:
       return require('../assets/characters/icons/preacher.png');
     case 2:
@@ -30,6 +29,22 @@ export const characterIconSelector = (characterId) => {
       return require('../assets/characters/icons/angry-ceo.jpg');
     default:
       return require('../assets/demon-cutout.png');
+  }
+};
+
+export const characterColorSelector = (characterId) => {
+  console.log(characterId);
+  switch (characterId) {
+    case 1:
+      return 'red';
+    case 2:
+      return 'green';
+    case 3:
+      return 'lightblue';
+    case 4:
+      return 'pink';
+    default:
+      return 'orange';
   }
 };
 

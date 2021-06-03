@@ -1,12 +1,11 @@
 /* eslint-disable global-require */
 import React, { useState } from 'react';
 import {
-  Button,
   FlatList, Image, ImageBackground, StyleSheet, useWindowDimensions, View,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
-import CharacterCard from '../components/CharacterCard';
+import CharacterOverviewCard from '../components/CharacterOverviewCard';
 // import WithScreenBreakPoint from '../components/WithScreenBreakPoint';
 import { navigateToAction, startGameAction } from '../store/actions';
 import { screens, AVAILABLE_CHARACTERS, SMALL_SCREEN_BREAK_POINT } from './constances';
@@ -57,7 +56,7 @@ function SetupScreen() {
   };
 
   return (
-    <ImageBackground source={require('../assets/characters/character-background.jpg')} style={styles.background}>
+    <ImageBackground source={require('../assets/characters/full-image/character-background.jpg')} style={styles.background}>
       <View style={styles.header}>
         <Image source={require('../assets/characterSelection.png')} style={styles.title} resizeMode="contain" />
         <MaterialCommunityIcons
@@ -84,10 +83,10 @@ function SetupScreen() {
           keyExtractor={(item) => item.id}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           renderItem={({ item }) => (
-            <CharacterCard
+            <CharacterOverviewCard
+              id={item.id}
               title={item.name}
               description={item.description}
-              image={item.image}
               characterSelector={characterSelector(item.id)}
               selected={selectedCharacters.includes(item.id)}
             />
@@ -100,7 +99,8 @@ function SetupScreen() {
           data={AVAILABLE_CHARACTERS}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <CharacterCard
+            <CharacterOverviewCard
+              id={item.id}
               title={item.name}
               description={item.description}
               image={item.image}

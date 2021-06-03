@@ -24,14 +24,14 @@ const styleGenerator = (width) => StyleSheet.create({
   },
 });
 
-function CharacterCard(props) {
+function CharacterOverviewCard(props) {
   const { width } = useWindowDimensions();
   const smallScreenWidth = isSmallScreen(width) ? width : width / 2;
   const {
     id, title, description, characterSelector, selected,
   } = props;
   const styles = styleGenerator(smallScreenWidth);
-  console.log(id);
+
   return (
     <Card
       style={[styles.container, selected ? styles.highLight : null]}
@@ -49,7 +49,7 @@ function CharacterCard(props) {
   );
 }
 
-CharacterCard.prototype = {
+CharacterOverviewCard.prototype = {
   title: PropTypes.string,
   description: PropTypes.string,
   image: PropTypes.image,
@@ -57,4 +57,4 @@ CharacterCard.prototype = {
   selected: PropTypes.bool,
 };
 
-export default CharacterCard;
+export default CharacterOverviewCard;
