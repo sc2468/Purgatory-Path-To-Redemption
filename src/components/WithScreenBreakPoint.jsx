@@ -6,8 +6,6 @@ const Large = 'Large';
 export const screenSizes = { Small, Medium, Large };
 
 const WithScreenBreakPoint = (width) => {
-  console.log(width);
-
   const screenSize = { Small: false, Medium: false, Large: false };
   if (width > 1000) {
     screenSize[Large] = true;

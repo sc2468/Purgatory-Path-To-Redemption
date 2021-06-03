@@ -1,6 +1,5 @@
 /* eslint-disable global-require */
 export const characterImageSelector = (characterId) => {
-  console.log(characterId);
   switch (characterId) {
     //
     case 1:
@@ -33,16 +32,15 @@ export const characterIconSelector = (characterId) => {
 };
 
 export const characterColorSelector = (characterId) => {
-  console.log(characterId);
   switch (characterId) {
     case 1:
-      return 'red';
+      return 'orange';
     case 2:
       return 'green';
     case 3:
       return 'lightblue';
     case 4:
-      return 'pink';
+      return 'red';
     default:
       return 'orange';
   }

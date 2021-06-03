@@ -16,10 +16,18 @@ export const AVAILABLE_CHARACTERS = [
 ];
 
 export const STARTING_CHARACTER_STATS = {
-  1: { name: 'Prisoner Turned Preacher', health: 15, salvation: 30 },
-  2: { name: 'Adrenalin Junky', health: 15, salvation: 30 },
-  3: { name: 'The Scientist', health: 15, salvation: 30 },
-  4: { name: 'The Angry CEO', health: 15, salvation: 30 },
+  1: {
+    name: 'Prisoner Turned Preacher', health: 15, salvation: 30, strength: 4, intelligence: 3, agility: 3,
+  },
+  2: {
+    name: 'Adrenalin Junky', health: 15, salvation: 30, strength: 4, intelligence: 3, agility: 3,
+  },
+  3: {
+    name: 'The Scientist', health: 15, salvation: 30, strength: 4, intelligence: 3, agility: 3,
+  },
+  4: {
+    name: 'The Angry CEO', health: 15, salvation: 30, strength: 4, intelligence: 3, agility: 3,
+  },
 };
 
 export const SMALL_SCREEN_BREAK_POINT = 800;

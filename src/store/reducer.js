@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 import { combineReducers } from 'redux';
-import { NAVIGATE_TO, START_GAME } from './actions';
+import { CHANGE_CHARACTER_STAT, NAVIGATE_TO, START_GAME } from './actions';
 import { screens, STARTING_CHARACTER_STATS } from '../screens/constances';
 
 const NAVIGATION_INITIAL_STATE = { currentPage: screens.LANDING };
@@ -16,9 +16,10 @@ function navigatorReducer(state = NAVIGATION_INITIAL_STATE, action) {
   return state;
 }
 
-const setupInitialState = { turnOrder: [], characters: [] };
+const gameInitialState = { turnOrder: [], characters: [] };
 
-function setupReducer(state = setupInitialState, action) {
+// TODO separate these into functions
+function gameReducer(state = gameInitialState, action) {
   if (action.type === START_GAME) {
     const characterMap = {};
     action.selectedCharacter.forEach((characterId) => {
@@ -32,7 +33,17 @@ function setupReducer(state = setupInitialState, action) {
       },
     });
   }
+  if (action.type === CHANGE_CHARACTER_STAT) {
+    const character = { ...state.characterMap[action.change.characterId] };
+    character[action.change.stat] = action.change.newValue;
+
+    return update(state, {
+      $merge: {
+        characterMap: { ...state.characterMap, [action.change.characterId]: character },
+      },
+    });
+  }
   return state;
 }
 
-export default combineReducers({ navigation: navigatorReducer, setup: setupReducer });
+export default combineReducers({ navigation: navigatorReducer, gameDate: gameReducer });

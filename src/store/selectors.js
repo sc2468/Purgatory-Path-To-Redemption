@@ -1,11 +1,11 @@
 export const screenSelector = (state) => state.navigation.currentPage;
 
-export const characterSelector = (state) => state.setup.characterMap;
+export const characterSelector = (state) => state.gameDate.characterMap;
 
-export const monsterSelector = (state) => state.setup.monsterMonster;
+export const monsterSelector = (state) => state.gameDate.monsterMonster;
 
-export const currentTurnSelector = (state) => state.setup.currentTurnNumber;
+export const currentTurnSelector = (state) => state.gameData.currentTurnNumber;
 
-export const turnOrderSelector = (state) => state.setup.turnOrder;
+export const turnOrderSelector = (state) => state.gameDate.turnOrder;
 
-export const activeEntityIndex = (state) => state.setup.turnOrder[0];
+export const activeEntityIndex = (state) => state.gameDate.turnOrder[0];

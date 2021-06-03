@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     flexGrow: -1,
     paddingTop: 5,
     paddingBottom: 5,
-    width: '95%',
+    width: '100%',
   },
   separator: {
     padding: 10,
@@ -24,8 +24,6 @@ function BoardGameDisplay(props) {
     (key) => ({ id: Number(key), ...characters[key] }),
   );
   return (
-  // <View style={styles.container}>
-  //   <View style={{ width: '100%' }}>header</View>
     <FlatList
       style={styles.listContainer}
       scrollEnabled
@@ -35,7 +33,6 @@ function BoardGameDisplay(props) {
       renderItem={({ item }) => (<CharacterListItem item={item} />)}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
     />
-  // </View>
   );
 }
 
