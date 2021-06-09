@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import {
   Image, ImageBackground, StyleSheet, TouchableHighlight, View,
 } from 'react-native';
-import { Paragraph, Title } from 'react-native-paper';
-import { MaterialCommunityIcons } from 'react-native-vector-icons';
-import { useDispatch } from 'react-redux';
-import { changeCharacterStat } from '../store/actions';
+import { statNames } from '../screens/constances';
 import { characterColorSelector, characterIconSelector } from '../utilities/imageLoader';
+import CharacterStatisticChanger from './CharacterStatistic';
+import HealthAndSalvationDisplay from './HealthAndSalvationDisplay';
+import MinorStatDisplay from './MinorStatDisplay';
 
 const styles = StyleSheet.create({
   border: {
@@ -37,11 +37,17 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexDirection: 'row',
   },
+  overlay: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    opacity: 0.2,
+    left: 0,
+  },
 });
 
 export default function CharacterListItem(props) {
   const [expand, setExpand] = useState(false);
-  const dispatch = useDispatch();
   const {
     id, name, health, salvation, strength, intelligence, agility,
   } = props.item;
@@ -52,7 +58,7 @@ export default function CharacterListItem(props) {
       imageStyle={{ borderRadius: 10 }}
       style={styles.background}
     >
-
+      <View style={[styles.overlay, { backgroundColor: characterColor }]} />
       <View style={[styles.border, { borderColor: characterColor, shadowColor: characterColor }]}>
         <TouchableHighlight onPress={() => setExpand(!expand)}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -66,46 +72,34 @@ export default function CharacterListItem(props) {
               }}
             />
             <View style={{ flexDirection: 'row', padding: 10, flexGrow: 1 }}>
-              <View style={styles.detailsContainer}>
-                <View style={styles.header}>
-                  <Title style={{ color: 'white' }}>{name}</Title>
-                </View>
-                <View style={styles.data}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <MaterialCommunityIcons name="heart" size={50} color="grey" />
-                    <Title style={{ color: 'white' }}>{health}</Title>
-                  </View>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <MaterialCommunityIcons name="book-cross" size={50} color="grey" />
-                    <Title style={{ color: 'white' }}>{salvation}</Title>
-                  </View>
-                </View>
-              </View>
+              <HealthAndSalvationDisplay
+                name={name}
+                characterColor={characterColor}
+                health={health}
+                salvation={salvation}
+              />
             </View>
-            {/* TODO extract this into a reuseable component */}
-            <View style={{ flexDirection: 'column', paddingRight: 10 }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <MaterialCommunityIcons name="dumbbell" size={30} color="grey" />
-                <Title style={{ color: 'white' }}>{strength}</Title>
-              </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <MaterialCommunityIcons name="brain" size={30} color="grey" />
-                <Title style={{ color: 'white' }}>{intelligence}</Title>
-              </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <MaterialCommunityIcons name="run-fast" size={30} color="grey" />
-                <Title style={{ color: 'white' }}>{agility}</Title>
-              </View>
-            </View>
+            <MinorStatDisplay
+              characterColor={characterColor}
+              strength={strength}
+              intelligence={intelligence}
+              agility={agility}
+            />
           </View>
         </TouchableHighlight>
         {expand && (
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <MaterialCommunityIcons name="heart" size={30} color="red" />
-          <MaterialCommunityIcons name="minus" size={30} color="red" onPress={() => dispatch(changeCharacterStat(id, 'health', health - 1))} />
-          <Paragraph style={{ color: 'white' }}>{`${health}/15`}</Paragraph>
-          <MaterialCommunityIcons name="plus" size={30} color="green" onPress={() => dispatch(changeCharacterStat(id, 'health', health + 1))} />
-        </View>
+          <View style={{ flexDirection: 'row', padding: 5 }}>
+            {statNames.map((statName) => (
+              // console.log(statName)
+              <CharacterStatisticChanger
+                key={statName}
+                characterId={id}
+                statName={statName}
+                statValue={props.item[statName]}
+                color={characterColor}
+              />
+            ))}
+          </View>
         )}
       </View>
     </ImageBackground>

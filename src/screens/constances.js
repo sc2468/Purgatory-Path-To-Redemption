@@ -17,18 +17,20 @@ export const AVAILABLE_CHARACTERS = [
 
 export const STARTING_CHARACTER_STATS = {
   1: {
-    name: 'Prisoner Turned Preacher', health: 15, salvation: 30, strength: 4, intelligence: 3, agility: 3,
+    name: 'Prisoner Turned Preacher', health: { current: 15, max: 15 }, salvation: { current: 30, max: 100 }, strength: { current: 4, max: 5 }, intelligence: { current: 2, max: 5 }, agility: { current: 3, max: 5 },
   },
   2: {
-    name: 'Adrenalin Junky', health: 15, salvation: 30, strength: 4, intelligence: 3, agility: 3,
+    name: 'Adrenalin Junky', health: { current: 15, max: 15 }, salvation: { current: 30, max: 100 }, strength: { current: 4, max: 5 }, intelligence: { current: 2, max: 5 }, agility: { current: 3, max: 5 },
   },
   3: {
-    name: 'The Scientist', health: 15, salvation: 30, strength: 4, intelligence: 3, agility: 3,
+    name: 'The Scientist', health: { current: 15, max: 15 }, salvation: { current: 30, max: 100 }, strength: { current: 4, max: 5 }, intelligence: { current: 2, max: 5 }, agility: { current: 3, max: 5 },
   },
   4: {
-    name: 'The Angry CEO', health: 15, salvation: 30, strength: 4, intelligence: 3, agility: 3,
+    name: 'The Angry CEO', health: { current: 15, max: 15 }, salvation: { current: 30, max: 100 }, strength: { current: 4, max: 5 }, intelligence: { current: 2, max: 5 }, agility: { current: 3, max: 5 },
   },
 };
+
+export const statNames = ['health', 'salvation', 'strength', 'intelligence', 'agility'];
 
 export const SMALL_SCREEN_BREAK_POINT = 800;
 export const isSmallScreen = ((width) => width < SMALL_SCREEN_BREAK_POINT);

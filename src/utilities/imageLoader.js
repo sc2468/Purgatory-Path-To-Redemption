@@ -46,4 +46,21 @@ export const characterColorSelector = (characterId) => {
   }
 };
 
+export const statIconSelector = (statName) => {
+  switch (statName) {
+    case 'health':
+      return 'heart';
+    case 'salvation':
+      return 'book-cross';
+    case 'strength':
+      return 'dumbbell';
+    case 'intelligence':
+      return 'brain';
+    case 'agility':
+      return 'run-fast';
+    default:
+      return 'book-cross';
+  }
+};
+
 export const monsterImageSelector = (monsterId) => monsterId;
