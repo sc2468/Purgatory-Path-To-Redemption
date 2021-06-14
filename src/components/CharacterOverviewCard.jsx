@@ -4,14 +4,13 @@ import {
   Card, Paragraph, Title,
 } from 'react-native-paper';
 import PropTypes from 'prop-types';
-import { isSmallScreen } from '../screens/constances';
 import { characterImageSelector } from '../utilities/imageLoader';
+import { isSmallScreen } from '../screens/constances';
 
-const styleGenerator = (width) => StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     margin: 10,
     flex: 1,
-    maxWidth: width * 0.9,
   },
 
   unselectedImage: {
@@ -19,27 +18,32 @@ const styleGenerator = (width) => StyleSheet.create({
   },
   cover: {
     resizeMode: 'contain',
-    height: width * 0.7,
-    width: width * 0.9,
   },
+
 });
 
-function CharacterOverviewCard(props) {
+function CharacterOverviewCard({
+  id, title, description, characterSelector, selected,
+}) {
   const { width } = useWindowDimensions();
   const smallScreenWidth = isSmallScreen(width) ? width : width / 2;
-  const {
-    id, title, description, characterSelector, selected,
-  } = props;
-  const styles = styleGenerator(smallScreenWidth);
 
   return (
     <Card
-      style={[styles.container, selected ? styles.highLight : null]}
+      style={[styles.container, { maxWidth: smallScreenWidth * 0.9 },
+        selected ? styles.highLight : null,
+      ]}
       onPress={characterSelector}
     >
       <Card.Cover
         source={characterImageSelector(id)}
-        style={[styles.cover, !selected && styles.unselectedImage]}
+        style={
+          [
+            styles.cover,
+            { width: smallScreenWidth * 0.9, height: smallScreenWidth * 0.7 },
+            !selected && styles.unselectedImage,
+          ]
+        }
       />
       <Card.Content>
         <Title>{title}</Title>
@@ -50,11 +54,11 @@ function CharacterOverviewCard(props) {
 }
 
 CharacterOverviewCard.prototype = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  image: PropTypes.image,
-  characterSelector: PropTypes.func,
-  selected: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  characterSelector: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired,
 };
 
 export default CharacterOverviewCard;

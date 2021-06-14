@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-// import { Title } from 'react-native-paper';
 import CharacterListItem from './CharacterListItem';
 
 const styles = StyleSheet.create({

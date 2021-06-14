@@ -25,10 +25,7 @@ function PageWithTitle(props) {
       <View style={styles.header}>
         {HeaderComponent}
       </View>
-      {/* Create its own component for this */}
-      {/* <View style={styles.BodyContainer}> */}
       {BodyComponent}
-      {/* </View> */}
     </ImageBackground>
   );
 }

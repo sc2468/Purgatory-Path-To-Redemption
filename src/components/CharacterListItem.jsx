@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 /* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Image, ImageBackground, StyleSheet, TouchableHighlight, View,
 } from 'react-native';
@@ -15,9 +16,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 3,
     borderWidth: 3,
-    shadowRadius: 20,
+    shadowRadius: 10,
     shadowOpacity: 10,
     borderRadius: 10,
+    overflow: 'hidden',
   },
   background: {
     borderRadius: 100,
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     opacity: 0.2,
     left: 0,
+    borderRadius: 10,
   },
 });
 
@@ -67,8 +70,8 @@ export default function CharacterListItem(props) {
               style={{
                 height: 110,
                 width: 110,
-                borderTopLeftRadius: 10,
-                borderBottomLeftRadius: 10,
+                // borderTopLeftRadius: 10,
+                // borderBottomLeftRadius: 10,
               }}
             />
             <View style={{ flexDirection: 'row', padding: 10, flexGrow: 1 }}>
@@ -90,7 +93,6 @@ export default function CharacterListItem(props) {
         {expand && (
           <View style={{ flexDirection: 'row', padding: 5 }}>
             {statNames.map((statName) => (
-              // console.log(statName)
               <CharacterStatisticChanger
                 key={statName}
                 characterId={id}
@@ -105,3 +107,22 @@ export default function CharacterListItem(props) {
     </ImageBackground>
   );
 }
+
+const statValue = {
+  current: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+};
+
+const characterDetails = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  health: PropTypes.instanceOf(statValue).isRequired,
+  salvation: PropTypes.instanceOf(statValue).isRequired,
+  strength: PropTypes.instanceOf(statValue).isRequired,
+  intelligence: PropTypes.instanceOf(statValue).isRequired,
+  agility: PropTypes.instanceOf(statValue).isRequired,
+};
+
+CharacterListItem.propTypes = {
+  item: PropTypes.instanceOf(characterDetails).isRequired,
+};

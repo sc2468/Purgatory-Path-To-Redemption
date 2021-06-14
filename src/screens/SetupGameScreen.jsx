@@ -1,23 +1,15 @@
 /* eslint-disable global-require */
 import React, { useState } from 'react';
 import {
-  FlatList, Image, ImageBackground, StyleSheet, useWindowDimensions, View,
+  Image, ImageBackground, StyleSheet, useWindowDimensions, View,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
-import CharacterOverviewCard from '../components/CharacterOverviewCard';
-// import WithScreenBreakPoint from '../components/WithScreenBreakPoint';
 import { navigateToAction, startGameAction } from '../store/actions';
-import { screens, AVAILABLE_CHARACTERS, SMALL_SCREEN_BREAK_POINT } from './constances';
+import { screens } from './constances';
+import CharacterSelectionList from '../components/CharacterSelectionList';
 
 const stylesCreator = (width) => StyleSheet.create({
-  listContainer: {
-    flex: 1,
-    flexBasis: 1,
-    flexGrow: -1,
-    paddingTop: 5,
-    paddingBottom: 5,
-  },
   background: {
     alignItems: 'center',
     alignContent: 'center',
@@ -44,7 +36,6 @@ function SetupScreen() {
   const { width } = useWindowDimensions();
   const [selectedCharacters, setSelectedCharacter] = useState([]);
   const dispatch = useDispatch();
-  const Large = width > SMALL_SCREEN_BREAK_POINT;
   const styles = stylesCreator(width);
 
   const characterSelector = (id) => () => {
@@ -66,51 +57,16 @@ function SetupScreen() {
           color="Red"
           onPress={
           () => {
-            // ToDo use redux thunk to make this nicer
             dispatch(startGameAction(selectedCharacters));
             dispatch(navigateToAction(screens.MAIN_GAME));
           }
         }
         />
       </View>
-
-      {/* Create its own component for this */}
-      <View style={styles.listContainer}>
-        {Large && (
-        <FlatList
-          scrollEnabled
-          data={AVAILABLE_CHARACTERS}
-          keyExtractor={(item) => item.id}
-          columnWrapperStyle={{ justifyContent: 'space-between' }}
-          renderItem={({ item }) => (
-            <CharacterOverviewCard
-              id={item.id}
-              title={item.name}
-              description={item.description}
-              characterSelector={characterSelector(item.id)}
-              selected={selectedCharacters.includes(item.id)}
-            />
-          )}
-          numColumns={2}
-        />
-        )}
-        {!Large && (
-        <FlatList
-          data={AVAILABLE_CHARACTERS}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <CharacterOverviewCard
-              id={item.id}
-              title={item.name}
-              description={item.description}
-              image={item.image}
-              characterSelector={characterSelector(item.id)}
-              selected={selectedCharacters.includes(item.id)}
-            />
-          )}
-        />
-        )}
-      </View>
+      <CharacterSelectionList
+        characterSelector={characterSelector}
+        selectedCharacters={selectedCharacters}
+      />
     </ImageBackground>
   );
 }

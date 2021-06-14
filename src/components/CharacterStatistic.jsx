@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { changeCharacterStat } from '../store/actions';
 import { statIconSelector } from '../utilities/imageLoader';
 
@@ -10,7 +11,6 @@ function CharacterStatisticChanger({
   characterId, statName, statValue, color,
 }) {
   const dispatch = useDispatch();
-  console.log(statName);
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <MaterialCommunityIcons name={statIconSelector(statName)} size={30} color={color} />
@@ -20,5 +20,12 @@ function CharacterStatisticChanger({
     </View>
   );
 }
+
+CharacterStatisticChanger.propTypes = {
+  characterId: PropTypes.string.isRequired,
+  statName: PropTypes.string.isRequired,
+  statValue: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+};
 
 export default CharacterStatisticChanger;

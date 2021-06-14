@@ -1,5 +1,5 @@
 /* eslint-disable global-require */
-import React from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import {
   Text, Image, ImageBackground, StyleSheet, View, TouchableHighlight,
 } from 'react-native';
@@ -33,23 +33,49 @@ const styles = StyleSheet.create({
 function LandingScreen() {
   const dispatch = useDispatch();
 
-  const playSound = async () => {
-    const soundObject = new Audio.Sound();
-    try {
-      await soundObject.loadAsync(require('../assets/audio/wind-howl.mp3'));
-      await soundObject.setIsLoopingAsync(true);
-      // await soundObject.playAsync();
-      // Your sound is playing!
+  const soundObject = useMemo(() => new Audio.Sound(), []);
 
-      // Don't forget to unload the sound from memory
-      // when you are done using the Sound object
-      // await soundObject.unloadAsync();
-    } catch (error) {
-      // An error occurred!
-      console.log(error);
-    }
-  };
-  playSound();
+  const playSound = useCallback(
+    async () => {
+      try {
+        await soundObject.loadAsync(require('../assets/audio/wind-howl.mp3'));
+        await soundObject.setIsLoopingAsync(true);
+        await soundObject.playAsync();
+        // Your sound is playing!
+
+        // Don't forget to unload the sound from memory
+        // when you are done using the Sound object
+        //
+      } catch (error) {
+        // An error occurred!
+        console.log(error);
+      }
+    },
+    [soundObject],
+  );
+  // async () => {
+  //   try {
+  //     await soundObject.loadAsync(require('../assets/audio/wind-howl.mp3'));
+  //     await soundObject.setIsLoopingAsync(true);
+  //     await soundObject.playAsync();
+  //     // Your sound is playing!
+
+  //     // Don't forget to unload the sound from memory
+  //     // when you are done using the Sound object
+  //     //
+  //   } catch (error) {
+  //     // An error occurred!
+  //     console.log(error);
+  //   }
+  // };
+
+  useEffect(() => {
+    playSound();
+    return async () => {
+      await soundObject.unloadAsync();
+    };
+  }, [playSound, soundObject]);
+
   return (
     <TouchableHighlight
       style={styles.background}
