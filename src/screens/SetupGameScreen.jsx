@@ -6,7 +6,7 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import { navigateToAction, startGameAction } from '../store/actions';
-import { screens } from './constances';
+import { screens } from '../constances/displayConstances';
 import CharacterSelectionList from '../components/CharacterSelectionList';
 
 const stylesCreator = (width) => StyleSheet.create({

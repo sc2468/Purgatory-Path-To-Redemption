@@ -5,7 +5,7 @@ import {
 } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import { characterImageSelector } from '../utilities/imageLoader';
-import { isSmallScreen } from '../screens/constances';
+import { isSmallScreen } from '../constances/displayConstances';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,19 +19,29 @@ const styles = StyleSheet.create({
   cover: {
     resizeMode: 'contain',
   },
-
+  highLight: {
+    shadowRadius: 10,
+  }
 });
+
+export type Props = {
+  id: string,
+  title: string,
+  description: string,
+  characterSelector: () => {},
+  selected: Boolean,
+};
 
 function CharacterOverviewCard({
   id, title, description, characterSelector, selected,
-}) {
+}: Props) {
   const { width } = useWindowDimensions();
   const smallScreenWidth = isSmallScreen(width) ? width : width / 2;
 
   return (
     <Card
       style={[styles.container, { maxWidth: smallScreenWidth * 0.9 },
-        selected ? styles.highLight : null,
+      selected ? styles.highLight : null,
       ]}
       onPress={characterSelector}
     >

@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import Constants from 'expo-constants';
-import { screens } from './constances';
+import { screens } from '../constances/displayConstances';
 import LandingScreen from './LandingScreen';
 import { screenSelector } from '../store/selectors';
 import SetupGameScreen from './SetupGameScreen';

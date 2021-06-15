@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import CharacterListItem from './CharacterListItem';
+import { characterType } from '../constances/typesConstances';
+import CharacterListItem from './characterListItem/CharacterListItem';
 
 const styles = StyleSheet.create({
   listContainer: {
@@ -17,10 +18,13 @@ const styles = StyleSheet.create({
   },
 });
 
-function BoardGameDisplay(props) {
-  const { characters } = props;
-  const characterList = Object.keys(characters).map(
-    (key) => ({ id: Number(key), ...characters[key] }),
+export type Props = {
+  characters: string[],
+};
+
+function BoardGameDisplay({ characters }: Props) {
+  const characterList: { [string]: characterType }[] = Object.keys(characters).map(
+    (key) => ({ id: Number(key), ...characters[key] as characterType }),
   );
   return (
     <FlatList

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {
   FlatList, StyleSheet, useWindowDimensions, View,
 } from 'react-native';
-import { AVAILABLE_CHARACTERS, SMALL_SCREEN_BREAK_POINT } from '../screens/constances';
+import { SMALL_SCREEN_BREAK_POINT } from '../constances/displayConstances';
+import { AVAILABLE_CHARACTERS } from '../constances/gameConstances';
 import CharacterOverviewCard from './CharacterOverviewCard';
 
 const styles = StyleSheet.create({
@@ -16,7 +17,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function CharacterSelectionList({ characterSelector, selectedCharacters }) {
+export type Props = {
+  characterSelector: () => {},
+  selectedCharacters: () => {},
+};
+
+export default function CharacterSelectionList({ characterSelector, selectedCharacters }: Props) {
   const { width } = useWindowDimensions();
   const Large = width > SMALL_SCREEN_BREAK_POINT;
 

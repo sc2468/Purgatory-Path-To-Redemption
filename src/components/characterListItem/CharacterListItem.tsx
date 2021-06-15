@@ -1,15 +1,15 @@
 /* eslint-disable global-require */
 /* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   Image, ImageBackground, StyleSheet, TouchableHighlight, View,
 } from 'react-native';
-import { statNames } from '../screens/constances';
-import { characterColorSelector, characterIconSelector } from '../utilities/imageLoader';
+import { statNames } from '../../constances/gameConstances';
+import { characterColorSelector, characterIconSelector } from '../../utilities/imageLoader';
 import CharacterStatisticChanger from './CharacterStatistic';
 import HealthAndSalvationDisplay from './HealthAndSalvationDisplay';
 import MinorStatDisplay from './MinorStatDisplay';
+import { characterType } from '../../constances/typesConstances';
 
 const styles = StyleSheet.create({
   border: {
@@ -49,7 +49,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function CharacterListItem(props) {
+export type Props = {
+  item: characterType,
+};
+
+
+export default function CharacterListItem(props: Props) {
   const [expand, setExpand] = useState(false);
   const {
     id, name, health, salvation, strength, intelligence, agility,
@@ -57,7 +62,7 @@ export default function CharacterListItem(props) {
   const characterColor = characterColorSelector(id);
   return (
     <ImageBackground
-      source={require('../assets/boardGame/character-item-background.jpg')}
+      source={require('../../assets/boardGame/character-item-background.jpg')}
       imageStyle={{ borderRadius: 10 }}
       style={styles.background}
     >
@@ -91,7 +96,7 @@ export default function CharacterListItem(props) {
           </View>
         </TouchableHighlight>
         {expand && (
-          <View style={{ flexDirection: 'row', padding: 5 }}>
+          <View style={{ flexDirection: 'row', padding: 5, flexWrap: 'wrap' }}>
             {statNames.map((statName) => (
               <CharacterStatisticChanger
                 key={statName}
@@ -107,22 +112,3 @@ export default function CharacterListItem(props) {
     </ImageBackground>
   );
 }
-
-const statValue = {
-  current: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
-};
-
-const characterDetails = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  health: PropTypes.instanceOf(statValue).isRequired,
-  salvation: PropTypes.instanceOf(statValue).isRequired,
-  strength: PropTypes.instanceOf(statValue).isRequired,
-  intelligence: PropTypes.instanceOf(statValue).isRequired,
-  agility: PropTypes.instanceOf(statValue).isRequired,
-};
-
-CharacterListItem.propTypes = {
-  item: PropTypes.instanceOf(characterDetails).isRequired,
-};

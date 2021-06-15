@@ -1,5 +1,3 @@
-export const screens = { LANDING: 'LANDING', SETUP: 'SETUP', MAIN_GAME: 'GAME_BOARD' };
-
 export const AVAILABLE_CHARACTERS = [
   {
     id: 1, name: 'Prisoner Turned Preacher', description: 'The preachers tries to follow his new path of righteousness, by riding all the demonic influences he can when ever he finds them, but he can fall back to his old life when confronted with his old vices.',
@@ -31,6 +29,3 @@ export const STARTING_CHARACTER_STATS = {
 };
 
 export const statNames = ['health', 'salvation', 'strength', 'intelligence', 'agility'];
-
-export const SMALL_SCREEN_BREAK_POINT = 800;
-export const isSmallScreen = ((width) => width < SMALL_SCREEN_BREAK_POINT);

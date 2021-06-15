@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
-import React from 'react';
-import { ImageBackground, StyleSheet, View } from 'react-native';
-// import WithScreenBreakPoint from '../components/WithScreenBreakPoint';
+import React, { ReactElement } from 'react';
+import { ImageBackground, ImageSourcePropType, StyleSheet, View } from 'react-native';
 
 const styles = StyleSheet.create({
   background: {
@@ -18,7 +17,13 @@ const styles = StyleSheet.create({
   },
 });
 
-function PageWithTitle(props) {
+export type Props = {
+  HeaderComponent: ReactElement,
+  BodyComponent: ReactElement,
+  backgroundImage: ImageSourcePropType,
+};
+
+function PageWithTitle(props: Props) {
   const { HeaderComponent, BodyComponent, backgroundImage } = props;
   return (
     <ImageBackground source={backgroundImage} style={styles.background}>

@@ -1,7 +1,8 @@
 import update from 'immutability-helper';
 import { combineReducers } from 'redux';
 import { CHANGE_CHARACTER_STAT, NAVIGATE_TO, START_GAME } from './actions';
-import { screens, STARTING_CHARACTER_STATS } from '../screens/constances';
+import { screens } from '../constances/displayConstances';
+import { STARTING_CHARACTER_STATS } from '../constances/gameConstances';
 
 const NAVIGATION_INITIAL_STATE = { currentPage: screens.LANDING };
 
@@ -35,7 +36,7 @@ function gameReducer(state = gameInitialState, action) {
   }
   if (action.type === CHANGE_CHARACTER_STAT) {
     const character = { ...state.characterMap[action.change.characterId] };
-    character[action.change.stat] = action.change.newValue;
+    character[action.change.stat].current = action.change.newValue;
 
     return update(state, {
       $merge: {
