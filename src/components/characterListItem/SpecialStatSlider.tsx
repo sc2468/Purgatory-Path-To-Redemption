@@ -14,7 +14,7 @@ export type Props = {
   color: string,
 };
 
-function CharacterStatisticChanger({
+function SpecialStatSlider({
   characterId, statName, statValue, color,
 }: Props) {
   const dispatch = useDispatch();
@@ -28,4 +28,4 @@ function CharacterStatisticChanger({
   );
 }
 
-export default CharacterStatisticChanger;
+export default SpecialStatSlider;

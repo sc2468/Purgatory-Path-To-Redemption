@@ -3,6 +3,12 @@ export type statValueProp = {
   max: number,
 };
 
+export type specialStatProp = {
+  current: number,
+  max: number,
+  name: string
+};
+
 export type characterType = {
   id: string,
   name: string,
@@ -11,4 +17,5 @@ export type characterType = {
   strength: statValueProp,
   intelligence: statValueProp,
   agility: statValueProp,
+  specialStat?: specialStatProp,
 }

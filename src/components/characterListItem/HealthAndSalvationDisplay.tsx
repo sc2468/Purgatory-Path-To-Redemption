@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
-import { MaterialCommunityIcons } from 'react-native-vector-icons';
-import { statValueProp } from '../../constances/typesConstances';
+import { specialStatProp, statValueProp } from '../../constances/typesConstances';
+import { statIconSelector } from '../../utilities/imageLoader';
+import IconWithText from '../atons/IconWithText';
 
 const styles = StyleSheet.create({
   detailsContainer: {
@@ -23,10 +24,11 @@ export type Props = {
   characterColor: string,
   health: statValueProp,
   salvation: statValueProp,
+  specialStat?: specialStatProp,
 };
 
 export default function HealthAndSalvationDisplay({
-  name, characterColor, health, salvation,
+  name, characterColor, health, salvation, specialStat
 }: Props) {
   return (
     <View style={styles.detailsContainer}>
@@ -34,14 +36,24 @@ export default function HealthAndSalvationDisplay({
         <Title style={{ color: 'white' }}>{name}</Title>
       </View>
       <View style={styles.data}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', paddingRight: 10 }}>
-          <MaterialCommunityIcons name="heart" size={50} color={characterColor} style={{ paddingRight: 5 }} />
-          <Title style={{ color: 'white' }}>{health.current}</Title>
-        </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <MaterialCommunityIcons name="book-cross" size={50} color={characterColor} />
-          <Title style={{ color: 'white' }}>{salvation.current}</Title>
-        </View>
+        <IconWithText
+          iconColor={characterColor}
+          iconName={statIconSelector("health")}
+          iconSize={50}
+          text={health.current.toString()}
+        />
+        <IconWithText
+          iconColor={characterColor}
+          iconName={statIconSelector("salvation")}
+          iconSize={50}
+          text={salvation.current.toString()}
+        />
+        {specialStat && (<IconWithText
+          iconColor={characterColor}
+          iconName={statIconSelector(specialStat.name)}
+          iconSize={50}
+          text={specialStat.current.toString()}
+        />)}
       </View>
     </View>
   );

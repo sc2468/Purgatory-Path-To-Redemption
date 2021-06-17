@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   FlatList, StyleSheet, useWindowDimensions, View,
 } from 'react-native';
@@ -18,8 +17,8 @@ const styles = StyleSheet.create({
 });
 
 export type Props = {
-  characterSelector: () => {},
-  selectedCharacters: () => {},
+  characterSelector: (id: string) => () => {},
+  selectedCharacters: string[],
 };
 
 export default function CharacterSelectionList({ characterSelector, selectedCharacters }: Props) {
@@ -37,7 +36,7 @@ export default function CharacterSelectionList({ characterSelector, selectedChar
               id={item.id}
               title={item.name}
               description={item.description}
-              characterSelector={characterSelector(item.id)}
+              characterSelector={characterSelector}
               selected={selectedCharacters.includes(item.id)}
             />
           )}
@@ -63,8 +62,3 @@ export default function CharacterSelectionList({ characterSelector, selectedChar
     </View>
   );
 }
-
-CharacterSelectionList.propTypes = {
-  characterSelector: PropTypes.func.isRequired,
-  selectedCharacters: PropTypes.arrayOf(PropTypes.number).isRequired,
-};

@@ -5,8 +5,9 @@ import {
   Image, ImageBackground, StyleSheet, TouchableHighlight, View,
 } from 'react-native';
 import { statNames } from '../../constances/gameConstances';
-import { characterColorSelector, characterIconSelector } from '../../utilities/imageLoader';
+import { characterColorSelector, characterPortraitSelector } from '../../utilities/imageLoader';
 import CharacterStatisticChanger from './CharacterStatistic';
+import SpecialStatSlider from './SpecialStatSlider';
 import HealthAndSalvationDisplay from './HealthAndSalvationDisplay';
 import MinorStatDisplay from './MinorStatDisplay';
 import { characterType } from '../../constances/typesConstances';
@@ -57,7 +58,7 @@ export type Props = {
 export default function CharacterListItem(props: Props) {
   const [expand, setExpand] = useState(false);
   const {
-    id, name, health, salvation, strength, intelligence, agility,
+    id, name, health, salvation, strength, intelligence, agility, specialStat
   } = props.item;
   const characterColor = characterColorSelector(id);
   return (
@@ -71,12 +72,10 @@ export default function CharacterListItem(props: Props) {
         <TouchableHighlight onPress={() => setExpand(!expand)}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image
-              source={characterIconSelector(id)}
+              source={characterPortraitSelector(id)}
               style={{
                 height: 110,
                 width: 110,
-                // borderTopLeftRadius: 10,
-                // borderBottomLeftRadius: 10,
               }}
             />
             <View style={{ flexDirection: 'row', padding: 10, flexGrow: 1 }}>
@@ -85,6 +84,7 @@ export default function CharacterListItem(props: Props) {
                 characterColor={characterColor}
                 health={health}
                 salvation={salvation}
+                specialStat={specialStat}
               />
             </View>
             <MinorStatDisplay
@@ -106,6 +106,14 @@ export default function CharacterListItem(props: Props) {
                 color={characterColor}
               />
             ))}
+            {specialStat && (
+              <SpecialStatSlider
+                characterId={id}
+                statName={specialStat.name}
+                statValue={specialStat}
+                color={characterColor}
+              />
+            )}
           </View>
         )}
       </View>

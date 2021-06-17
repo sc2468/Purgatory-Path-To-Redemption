@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 const Small = 'Small';
 const Medium = 'Medium';
 const Large = 'Large';
@@ -18,10 +16,3 @@ const WithScreenBreakPoint = (width) => {
 };
 
 export default WithScreenBreakPoint;
-export const withScreenPropTypes = {
-  screenSize: {
-    Large: PropTypes.bool,
-    Medium: PropTypes.bool,
-    Small: PropTypes.bool,
-  },
-};

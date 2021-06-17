@@ -19,12 +19,12 @@ const styles = StyleSheet.create({
 });
 
 export type Props = {
-  characters: string[],
+  characters: { [key: string]: characterType }
 };
 
 function BoardGameDisplay({ characters }: Props) {
-  const characterList: { [string]: characterType }[] = Object.keys(characters).map(
-    (key) => ({ id: Number(key), ...characters[key] as characterType }),
+  const characterList = Object.keys(characters).map(
+    (key) => ({ ...characters[key] as characterType }),
   );
   return (
     <FlatList
@@ -32,7 +32,7 @@ function BoardGameDisplay({ characters }: Props) {
       scrollEnabled
       data={characterList}
       // need to toString this as having a number of a key creates an error
-      keyExtractor={(item) => item.id.toString()}
+      keyExtractor={(item) => item.id}
       renderItem={({ item }) => (<CharacterListItem item={item} />)}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
     />

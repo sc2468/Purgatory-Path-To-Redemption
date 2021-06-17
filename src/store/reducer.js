@@ -19,30 +19,39 @@ function navigatorReducer(state = NAVIGATION_INITIAL_STATE, action) {
 
 const gameInitialState = { turnOrder: [], characters: [] };
 
-// TODO separate these into functions
+const changeStat = (state, action) => {
+  const stat = action.change.stat;
+  const character = { ...state.characterMap[action.change.characterId] };
+  const newValue = Math.min(action.change.newValue, character[stat].max);
+  character[stat].current = newValue;
+
+  return update(state, {
+    $merge: {
+      characterMap: { ...state.characterMap, [action.change.characterId]: character },
+    },
+  });
+};
+
+const startGame = (state, action) => {
+  const characterMap = {};
+  action.selectedCharacter.forEach((characterId) => {
+    characterMap[characterId] = STARTING_CHARACTER_STATS[characterId];
+  });
+
+  return update(state, {
+    $merge: {
+      turnOrder: action.selectedCharacter,
+      characterMap,
+    },
+  });
+};
+
 function gameReducer(state = gameInitialState, action) {
   if (action.type === START_GAME) {
-    const characterMap = {};
-    action.selectedCharacter.forEach((characterId) => {
-      characterMap[characterId] = STARTING_CHARACTER_STATS[characterId];
-    });
-
-    return update(state, {
-      $merge: {
-        turnOrder: action.selectedCharacter,
-        characterMap,
-      },
-    });
+    return startGame(state, action);
   }
   if (action.type === CHANGE_CHARACTER_STAT) {
-    const character = { ...state.characterMap[action.change.characterId] };
-    character[action.change.stat].current = action.change.newValue;
-
-    return update(state, {
-      $merge: {
-        characterMap: { ...state.characterMap, [action.change.characterId]: character },
-      },
-    });
+    return changeStat(state, action);
   }
   return state;
 }

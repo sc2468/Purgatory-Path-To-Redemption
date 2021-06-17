@@ -3,7 +3,6 @@ import { StyleSheet, useWindowDimensions } from 'react-native';
 import {
   Card, Paragraph, Title,
 } from 'react-native-paper';
-import PropTypes from 'prop-types';
 import { characterImageSelector } from '../utilities/imageLoader';
 import { isSmallScreen } from '../constances/displayConstances';
 
@@ -28,7 +27,7 @@ export type Props = {
   id: string,
   title: string,
   description: string,
-  characterSelector: () => {},
+  characterSelector: (id: string) => () => {},
   selected: Boolean,
 };
 
@@ -43,7 +42,7 @@ function CharacterOverviewCard({
       style={[styles.container, { maxWidth: smallScreenWidth * 0.9 },
       selected ? styles.highLight : null,
       ]}
-      onPress={characterSelector}
+      onPress={characterSelector(id)}
     >
       <Card.Cover
         source={characterImageSelector(id)}
@@ -62,13 +61,5 @@ function CharacterOverviewCard({
     </Card>
   );
 }
-
-CharacterOverviewCard.prototype = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  characterSelector: PropTypes.func.isRequired,
-  selected: PropTypes.bool.isRequired,
-};
 
 export default CharacterOverviewCard;
