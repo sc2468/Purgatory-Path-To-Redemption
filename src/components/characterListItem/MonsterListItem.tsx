@@ -53,12 +53,9 @@ const styles = StyleSheet.create({
 export type Props = characterType;
 
 
-
-export default function CharacterListItem(props: Props) {
+export default function MonsterListItem(props: Props) {
   const [expand, setExpand] = useState(false);
-  const {
-    id, name, health, salvation, strength, intelligence, agility, specialStat
-  } = props;
+  const { id, name, health, specialStat } = props;
   const characterColor = characterColorSelector(id);
   return (
     <ImageBackground
@@ -82,29 +79,20 @@ export default function CharacterListItem(props: Props) {
                 name={name}
                 characterColor={characterColor}
                 health={health}
-                salvation={salvation}
                 specialStat={specialStat}
               />
             </View>
-            <MinorStatDisplay
-              characterColor={characterColor}
-              strength={strength}
-              intelligence={intelligence}
-              agility={agility}
-            />
           </View>
         </TouchableHighlight>
         {expand && (
           <View style={{ flexDirection: 'row', padding: 5, flexWrap: 'wrap' }}>
-            {statNames.map((statName) => (
-              <CharacterStatisticChanger
-                key={statName}
-                characterId={id}
-                statName={statName}
-                statValue={props[statName]}
-                color={characterColor}
-              />
-            ))}
+            <CharacterStatisticChanger
+              key={'health'}
+              characterId={id}
+              statName={'health'}
+              statValue={props['health']}
+              color={characterColor}
+            />
             {specialStat && (
               <SpecialStatSlider
                 characterId={id}

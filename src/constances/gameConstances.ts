@@ -51,9 +51,32 @@ export const STARTING_CHARACTER_STATS = {
     intelligence: { current: 2, max: 5 },
     strength: { current: 4, max: 5 },
     agility: { current: 3, max: 5 },
-    specialStat: { current: 5, max: 10, name: 'rage' },
+    specialStat: { current: 5, max: 10, name: 'anger' },
   },
 };
 
-export const specialStats = { rage: 'rage', adrenaline: 'adrenaline' };
+export const monstersSpecialStats = { rage: 'rage', heads: 'heads', };
+export const specialStats = { anger: 'anger', adrenaline: 'adrenaline', ...monstersSpecialStats };
 export const statNames = ['health', 'salvation', 'strength', 'intelligence', 'agility'];
+
+export const Minotaur = {
+  id: 'Minotaur',
+  name: 'Minotaur',
+  health: { current: 60, max: 60 },
+  specialStats: { current: 1, max: 5, name: 'anger' }
+};
+
+export const Hydra = {
+  id: 'Hydra',
+  name: 'Hydra',
+  health: { current: 55, max: 55 },
+  specialStats: { current: 1, max: 5, name: 'heads' }
+};
+
+export const Eye = {
+  id: 'Eye',
+  name: 'All Seeing Eye',
+  health: { current: 25, max: 25 }
+};
+
+export const monsters = { Minotaur, Hydra, Eye }

@@ -27,7 +27,7 @@ export type Props = {
   id: string,
   title: string,
   description: string,
-  characterSelector: (id: string) => () => {},
+  characterSelector: () => {},
   selected: Boolean,
 };
 
@@ -42,7 +42,7 @@ function CharacterOverviewCard({
       style={[styles.container, { maxWidth: smallScreenWidth * 0.9 },
       selected ? styles.highLight : null,
       ]}
-      onPress={characterSelector(id)}
+      onPress={characterSelector}
     >
       <Card.Cover
         source={characterImageSelector(id)}

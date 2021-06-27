@@ -36,7 +36,7 @@ export default function CharacterSelectionList({ characterSelector, selectedChar
               id={item.id}
               title={item.name}
               description={item.description}
-              characterSelector={characterSelector}
+              characterSelector={characterSelector(item.id)}
               selected={selectedCharacters.includes(item.id)}
             />
           )}

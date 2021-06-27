@@ -8,3 +8,6 @@ export const CHANGE_CHARACTER_STAT = 'CHANGE_CHARACTER_STAT';
 export const changeCharacterStat = (characterId, stat, newValue) => ({
   type: CHANGE_CHARACTER_STAT, change: { characterId, stat, newValue },
 });
+
+export const END_TURN = 'END_TURN';
+export const endTurnAction = () => ({ type: END_TURN });

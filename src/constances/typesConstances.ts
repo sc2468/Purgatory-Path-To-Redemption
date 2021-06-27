@@ -19,3 +19,9 @@ export type characterType = {
   agility: statValueProp,
   specialStat?: specialStatProp,
 }
+
+export type monsterType = {
+  id: string,
+  name: string,
+  health: statValueProp,
+}

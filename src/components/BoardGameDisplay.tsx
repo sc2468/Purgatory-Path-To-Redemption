@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { characterType } from '../constances/typesConstances';
+import { characterType, monsterType } from '../constances/typesConstances';
 import CharacterListItem from './characterListItem/CharacterListItem';
+import EntityListItem from './characterListItem/EntityListItem';
 
 const styles = StyleSheet.create({
   listContainer: {
@@ -20,20 +21,26 @@ const styles = StyleSheet.create({
 
 export type Props = {
   characters: { [key: string]: characterType }
+  monsters: { [key: string]: characterType }
 };
 
-function BoardGameDisplay({ characters }: Props) {
+function BoardGameDisplay({ characters, monsters }: Props) {
+  // needs to be ordered by turn order
   const characterList = Object.keys(characters).map(
     (key) => ({ ...characters[key] as characterType }),
   );
+
+  Object.keys(monsters).map(
+    (key) => characterList.push({ ...monsters[key] }),
+  );
+
   return (
     <FlatList
       style={styles.listContainer}
       scrollEnabled
       data={characterList}
-      // need to toString this as having a number of a key creates an error
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (<CharacterListItem item={item} />)}
+      renderItem={({ item }) => (<EntityListItem {...item} />)}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
     />
   );

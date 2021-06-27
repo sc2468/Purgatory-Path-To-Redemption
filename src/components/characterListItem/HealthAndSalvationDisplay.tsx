@@ -23,7 +23,7 @@ export type Props = {
   name: string,
   characterColor: string,
   health: statValueProp,
-  salvation: statValueProp,
+  salvation?: statValueProp,
   specialStat?: specialStatProp,
 };
 
@@ -42,12 +42,12 @@ export default function HealthAndSalvationDisplay({
           iconSize={50}
           text={health.current.toString()}
         />
-        <IconWithText
+        {salvation && <IconWithText
           iconColor={characterColor}
           iconName={statIconSelector("salvation")}
           iconSize={50}
           text={salvation.current.toString()}
-        />
+        />}
         {specialStat && (<IconWithText
           iconColor={characterColor}
           iconName={statIconSelector(specialStat.name)}

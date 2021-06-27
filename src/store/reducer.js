@@ -1,8 +1,12 @@
 import update from 'immutability-helper';
 import { combineReducers } from 'redux';
-import { CHANGE_CHARACTER_STAT, NAVIGATE_TO, START_GAME } from './actions';
+import {
+  CHANGE_CHARACTER_STAT, END_TURN, NAVIGATE_TO, START_GAME,
+} from './actions';
 import { screens } from '../constances/displayConstances';
-import { STARTING_CHARACTER_STATS } from '../constances/gameConstances';
+import {
+  STARTING_CHARACTER_STATS, Minotaur, Hydra, Eye,
+} from '../constances/gameConstances';
 
 const NAVIGATION_INITIAL_STATE = { currentPage: screens.LANDING };
 
@@ -17,12 +21,13 @@ function navigatorReducer(state = NAVIGATION_INITIAL_STATE, action) {
   return state;
 }
 
-const gameInitialState = { turnOrder: [], characters: [] };
+const gameInitialState = { turnOrder: [], roundNumber: 0, monsterList: [] };
 
 const changeStat = (state, action) => {
   const stat = action.change.stat;
   const character = { ...state.characterMap[action.change.characterId] };
-  const newValue = Math.min(action.change.newValue, character[stat].max);
+  const newValue = Math.max(0, Math.min(action.change.newValue, character[stat].max));
+
   character[stat].current = newValue;
 
   return update(state, {
@@ -41,7 +46,37 @@ const startGame = (state, action) => {
   return update(state, {
     $merge: {
       turnOrder: action.selectedCharacter,
+      currentTurnIndex: 0,
       characterMap,
+    },
+  });
+};
+
+const endRound = (roundNumber) => {
+  switch (roundNumber) {
+    case 2:
+      return { roundNumber, monsterList: { Minotaur } };
+    case 4:
+      return { roundNumber, monsterList: { Minotaur, Hydra } };
+    case 6:
+      return { roundNumber, monsterList: { Minotaur, Hydra, Eye } };
+    default:
+      return { roundNumber };
+  }
+};
+
+const endTurn = (state) => {
+  const { currentTurnIndex, roundNumber } = state;
+  let nextIndex = currentTurnIndex + 1;
+  let endOfRoundChanges = {};
+  if (nextIndex >= state.turnOrder.length) {
+    nextIndex = 0;
+    endOfRoundChanges = endRound(roundNumber + 1);
+  }
+  return update(state, {
+    $merge: {
+      currentTurnIndex: nextIndex,
+      ...endOfRoundChanges,
     },
   });
 };
@@ -53,7 +88,10 @@ function gameReducer(state = gameInitialState, action) {
   if (action.type === CHANGE_CHARACTER_STAT) {
     return changeStat(state, action);
   }
+  if (action.type === END_TURN) {
+    return endTurn(state);
+  }
   return state;
 }
 
-export default combineReducers({ navigation: navigatorReducer, gameDate: gameReducer });
+export default combineReducers({ navigation: navigatorReducer, gameData: gameReducer });

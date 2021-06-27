@@ -58,7 +58,7 @@ export const statIconSelector = (statName: string) => {
       return 'brain';
     case 'agility':
       return 'run-fast';
-    case 'rage':
+    case 'anger':
       return 'nuke';
     case 'adrenaline':
       return 'heart-pulse';

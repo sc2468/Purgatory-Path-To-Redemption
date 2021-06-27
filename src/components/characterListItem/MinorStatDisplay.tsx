@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Title } from 'react-native-paper';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { specialStatProp, statValueProp } from '../../constances/typesConstances';
+import { statValueProp } from '../../constances/typesConstances';
 import { statIconSelector } from '../../utilities/imageLoader';
 import IconWithText from '../atons/IconWithText';
 
