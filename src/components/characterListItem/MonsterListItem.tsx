@@ -4,12 +4,11 @@ import React, { useState } from 'react';
 import {
   Image, ImageBackground, StyleSheet, TouchableHighlight, View,
 } from 'react-native';
-import { statNames } from '../../constances/gameConstances';
-import { characterColorSelector, characterPortraitSelector } from '../../utilities/imageLoader';
+import { characterPortraitSelector } from '../../utilities/imageLoader';
+import { characterColorSelector } from '../../utilities/iconLoader';
 import CharacterStatisticChanger from './CharacterStatistic';
 import SpecialStatSlider from './SpecialStatSlider';
 import HealthAndSalvationDisplay from './HealthAndSalvationDisplay';
-import MinorStatDisplay from './MinorStatDisplay';
 import { characterType } from '../../constances/typesConstances';
 
 const styles = StyleSheet.create({
@@ -57,6 +56,7 @@ export default function MonsterListItem(props: Props) {
   const [expand, setExpand] = useState(false);
   const { id, name, health, specialStat } = props;
   const characterColor = characterColorSelector(id);
+  console.log(specialStat);
   return (
     <ImageBackground
       source={require('../../assets/boardGame/character-item-background.jpg')}

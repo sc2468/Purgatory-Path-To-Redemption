@@ -4,7 +4,7 @@ import { Paragraph } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import { changeCharacterStat } from '../../store/actions';
-import { statIconSelector } from '../../utilities/imageLoader';
+import { statIconSelector } from '../../utilities/iconLoader';
 import { statValueProp } from '../../constances/typesConstances';
 
 export type Props = {

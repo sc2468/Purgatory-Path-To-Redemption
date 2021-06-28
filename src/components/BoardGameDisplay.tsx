@@ -21,17 +21,12 @@ const styles = StyleSheet.create({
 
 export type Props = {
   characters: { [key: string]: characterType }
-  monsters: { [key: string]: characterType }
 };
 
-function BoardGameDisplay({ characters, monsters }: Props) {
+function BoardGameDisplay({ characters }: Props) {
   // needs to be ordered by turn order
   const characterList = Object.keys(characters).map(
     (key) => ({ ...characters[key] as characterType }),
-  );
-
-  Object.keys(monsters).map(
-    (key) => characterList.push({ ...monsters[key] }),
   );
 
   return (

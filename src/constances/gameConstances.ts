@@ -63,14 +63,14 @@ export const Minotaur = {
   id: 'Minotaur',
   name: 'Minotaur',
   health: { current: 60, max: 60 },
-  specialStats: { current: 1, max: 5, name: 'anger' }
+  specialStat: { current: 1, max: 5, name: 'rage' }
 };
 
 export const Hydra = {
   id: 'Hydra',
   name: 'Hydra',
   health: { current: 55, max: 55 },
-  specialStats: { current: 1, max: 5, name: 'heads' }
+  specialStat: { current: 2, max: 5, name: 'heads' }
 };
 
 export const Eye = {

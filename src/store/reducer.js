@@ -21,7 +21,7 @@ function navigatorReducer(state = NAVIGATION_INITIAL_STATE, action) {
   return state;
 }
 
-const gameInitialState = { turnOrder: [], roundNumber: 0, monsterList: [] };
+const gameInitialState = { turnOrder: [], roundNumber: 0 };
 
 const changeStat = (state, action) => {
   const stat = action.change.stat;
@@ -52,14 +52,15 @@ const startGame = (state, action) => {
   });
 };
 
-const endRound = (roundNumber) => {
+const endRound = (state, roundNumber) => {
+  const characters = { ...state.characterMap };
   switch (roundNumber) {
     case 2:
-      return { roundNumber, monsterList: { Minotaur } };
+      return { roundNumber, characterMap: { ...characters, Minotaur } };
     case 4:
-      return { roundNumber, monsterList: { Minotaur, Hydra } };
+      return { roundNumber, characterMap: { ...characters, Hydra } };
     case 6:
-      return { roundNumber, monsterList: { Minotaur, Hydra, Eye } };
+      return { roundNumber, characterMap: { ...characters, Eye } };
     default:
       return { roundNumber };
   }
@@ -71,7 +72,7 @@ const endTurn = (state) => {
   let endOfRoundChanges = {};
   if (nextIndex >= state.turnOrder.length) {
     nextIndex = 0;
-    endOfRoundChanges = endRound(roundNumber + 1);
+    endOfRoundChanges = endRound(state, roundNumber + 1);
   }
   return update(state, {
     $merge: {

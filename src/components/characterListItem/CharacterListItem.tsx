@@ -5,7 +5,8 @@ import {
   Image, ImageBackground, StyleSheet, TouchableHighlight, View,
 } from 'react-native';
 import { statNames } from '../../constances/gameConstances';
-import { characterColorSelector, characterPortraitSelector } from '../../utilities/imageLoader';
+import { characterPortraitSelector } from '../../utilities/imageLoader';
+import { characterColorSelector } from '../../utilities/iconLoader';
 import CharacterStatisticChanger from './CharacterStatistic';
 import SpecialStatSlider from './SpecialStatSlider';
 import HealthAndSalvationDisplay from './HealthAndSalvationDisplay';

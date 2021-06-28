@@ -2,8 +2,6 @@ export const screenSelector = (state) => state.navigation.currentPage;
 
 export const characterSelector = (state) => state.gameData.characterMap;
 
-export const monsterSelector = (state) => state.gameData.monsterList;
-
 export const currentCharacterTurnSelector = (state) => state.gameData.turnOrder[
   state.gameData.currentTurnIndex
 ];

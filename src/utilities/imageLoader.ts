@@ -16,8 +16,8 @@ export const characterImageSelector = (characterId: string) => {
 };
 
 /* eslint-disable global-require */
-export const characterPortraitSelector = (characterId: string) => {
-  switch (characterId) {
+export const characterPortraitSelector = (entityId: string) => {
+  switch (entityId) {
     case '1':
       return require('../assets/characters/icons/preacher.png');
     case '2':
@@ -26,53 +26,15 @@ export const characterPortraitSelector = (characterId: string) => {
       return require('../assets/characters/icons/scientist.png');
     case '4':
       return require('../assets/characters/icons/angry-ceo.jpg');
+    case 'Minotaur':
+      return require('../assets/monsters/minotaur.png');
+    case 'Hydra':
+      return require('../assets/monsters/hydra.png');
+    case 'Eye':
+      return require('../assets/monsters/eye.png');
     default:
       return require('../assets/demon-cutout.png');
   }
 };
 
-export const characterColorSelector = (characterId: string) => {
-  switch (characterId) {
-    case '1':
-      return 'orange';
-    case '2':
-      return 'green';
-    case '3':
-      return 'lightblue';
-    case '4':
-      return 'red';
-    default:
-      return 'orange';
-  }
-};
 
-export const statIconSelector = (statName: string) => {
-  switch (statName) {
-    case 'health':
-      return 'heart';
-    case 'salvation':
-      return 'book-cross';
-    case 'strength':
-      return 'dumbbell';
-    case 'intelligence':
-      return 'brain';
-    case 'agility':
-      return 'run-fast';
-    case 'anger':
-      return 'nuke';
-    case 'adrenaline':
-      return 'heart-pulse';
-    case 'drone':
-      return 'quadcopter';
-    case 'carryCapacity':
-      return 'sack';
-    case 'cardLimit':
-      return 'cards';
-    case 'movement':
-      return 'shoe-print';
-    default:
-      return 'book-cross';
-  }
-};
-
-export const monsterImageSelector = (monsterId: number) => monsterId;

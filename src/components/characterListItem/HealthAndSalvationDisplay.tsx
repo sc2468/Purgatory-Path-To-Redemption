@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
 import { specialStatProp, statValueProp } from '../../constances/typesConstances';
-import { statIconSelector } from '../../utilities/imageLoader';
-import IconWithText from '../atons/IconWithText';
+import { statIconSelector } from '../../utilities/iconLoader';
+import IconWithText from '../atoms/IconWithText';
 
 const styles = StyleSheet.create({
   detailsContainer: {

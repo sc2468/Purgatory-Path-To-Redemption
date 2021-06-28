@@ -6,7 +6,7 @@ import MonsterListItem from './MonsterListItem';
 export type Props = characterType;
 
 export default function EntityListItem(props: Props) {
-  console.log(props.salvation);
+  console.log(props);
   return (
     <Fragment>
       {props.salvation && <CharacterListItem {...props} />}
