@@ -5,7 +5,7 @@ import {
   Image, ImageBackground, StyleSheet, TouchableHighlight,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { screens } from './constances';
+import { screens } from '../constances/displayConstances';
 import { navigateToAction } from '../store/actions';
 
 const styles = StyleSheet.create({
